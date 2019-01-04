@@ -18,7 +18,7 @@ summary(y)
 #score, so I use ggplot to create a scatter plot.
 
 y %>% 
-ggplot(aes(x = y$Economy..GDP.per.Capita., y = y$Happiness.Score)) + geom_point()
+ggplot(aes(x = y$economy_gdp_per_capita, y = y$happiness_score)) + geom_point()
 
 #Creating RDS file to use in my Shiny App. I write the RDS file to a folder
 #inside of my Shiny App directory called shiny_data.
