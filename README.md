@@ -1,2 +1,2 @@
 # datachallenge
-Submission for Harvard Data Science Animation Challenge
+Working on first draft of submission for Harvard Data Science Animation Challenge
