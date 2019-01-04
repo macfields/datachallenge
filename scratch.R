@@ -1,12 +1,27 @@
 library(readr)
 library(tidyverse)
+library(janitor)
 
+#Reading in csv file froml 2017 World Happiness Report. Use clean names to
+#handle problematic variable names.
 
-x<- read_csv("2017-18_NBA_salary.csv") %>% 
-  select(Player,Salary,Age,MP)
+y <- read_csv("2017.csv") %>% 
+  clean_names()
 
-glimpse(x)
-names(x)
-summary(x)
+#Want to get an idea of what my dataset looks like. 
+glimpse(y)
 
-write_rds(x, path = "app/shiny_data/x.rds")
+#Univariate Analysis
+summary(y)
+
+#Want to get a sense of the relationship between GDP per capita and Happiness
+#score, so I use ggplot to create a scatter plot.
+
+y %>% 
+ggplot(aes(x = y$Economy..GDP.per.Capita., y = y$Happiness.Score)) + geom_point()
+
+#Creating RDS file to use in my Shiny App. I write the RDS file to a folder
+#inside of my Shiny App directory called shiny_data.
+
+write_rds(y, path = "app/shiny_data/happiness.rds")
+

@@ -13,6 +13,9 @@ library(shinythemes)
 library(tools)
 library(DT)
 
+#reading in data from rds file into shiny app
+happiness_shiny <- read_rds("shiny_data/happiness.rds")
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -31,7 +34,8 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("scatter")
+         plotOutput("scatter"), 
+         verbatimTextOutput("olssummary")
       )
    )
 )
@@ -41,13 +45,18 @@ server <- function(input, output) {
    
    output$scatter <- renderPlot({
      if(input$model == "Ordinary Least Squares") {
-       x %>% 
-         ggplot(aes(x = MP, y = Salary)) + geom_point() + geom_smooth(method = "lm")
+       happiness_shiny %>% 
+         ggplot(aes(x = Economy..GDP.per.Capita., y = Happiness.Score)) + geom_point() + geom_smooth(method = "lm")
      }
      else {
-       x %>% 
-       ggplot(aes(x = MP, y = Salary)) + geom_point()
+       happiness_shiny %>% 
+       ggplot(aes(x = Economy..GDP.per.Capita., y = Happiness.Score)) + geom_point()
      }
+   })
+   
+   output$olssummary <- renderPrint ({
+     ols_model <- lm(Happiness.Score ~ Economy..GDP.per.Capita., data = happiness_shiny)
+     summary(ols_model)
    })
 }
 
