@@ -2,8 +2,9 @@ library(readr)
 library(tidyverse)
 library(janitor)
 
-#Reading in csv file froml 2017 World Happiness Report. Use clean names to
-#handle problematic variable names.
+#Reading in csv file from 2017 World Happiness Report. Data queried from World
+#Happiness Report Data on data.world.  Use clean names to handle problematic
+#variable names.
 
 z <- read_csv("world-happiness-report-data-QueryResult.csv") %>% clean_names()
 
