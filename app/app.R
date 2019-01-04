@@ -46,16 +46,16 @@ server <- function(input, output) {
    output$scatter <- renderPlot({
      if(input$model == "Ordinary Least Squares") {
        happiness_shiny %>% 
-         ggplot(aes(x = economy_gdp_per_capita, y = happiness_score)) + geom_point() + geom_smooth(method = "lm")
+         ggplot(aes(x = log_gdp_per_capita, y = life_ladder)) + geom_point() + geom_smooth(method = "lm")
      }
      else {
        happiness_shiny %>% 
-       ggplot(aes(x = economy_gdp_per_capita, y = happiness_score)) + geom_point()
+       ggplot(aes(x = log_gdp_per_capita, y = life_ladder)) + geom_point()
      }
    })
    
    output$olssummary <- renderPrint ({
-     ols_model <- lm(happiness_score ~ economy_gdp_per_capita, data = happiness_shiny)
+     ols_model <- lm(life_ladder ~ log_gdp_per_capita, data = happiness_shiny)
      summary(ols_model)
    })
 }
